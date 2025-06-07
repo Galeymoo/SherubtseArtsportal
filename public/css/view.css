@@ -1,0 +1,269 @@
+:root {
+    --primary-color: #4b00c0;
+    --text-color: #000;
+    --secondary-text: #666;
+    --background-color: #1f1f1f;
+    --white: #fff;
+    --font-family: 'Poppins', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    min-height: 100vh;
+}
+
+/* Top Navigation */
+.top-nav {
+    background-color: var(--primary-color);
+    padding: 1rem 2rem;
+    color: var(--white);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.nav-header h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.nav-header p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.nav-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.nav-actions a {
+    background-color: var(--white);
+    color: var(--primary-color);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-weight: 500;
+    margin-left: 0.5rem;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Hamburger Button (hidden on desktop) */
+.hamburger {
+    display: none;
+    font-size: 1.5rem;
+    background: none;
+    border: none;
+    color: var(--white);
+    cursor: pointer;
+    position: absolute;
+    top: 1.2rem;
+    right: 2rem;
+    z-index: 1001;
+}
+
+/* Main Layout */
+.artwork-detail-container {
+    max-width: 1000px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+.back-link {
+    font-size: 0.95rem;
+    color: var(--primary-color);
+    font-weight: 500;
+    text-decoration: none;
+    margin-bottom: 1rem;
+    display: inline-block;
+    transition: color 0.2s;
+}
+
+.back-link:hover {
+    color: #331299;
+}
+
+.detail-content {
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+/* Artwork Details */
+.artwork-detail {
+    padding: 2rem;
+}
+
+.detail-image {
+    width: 100%;
+    max-height: 500px;
+    object-fit: contain;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.artwork-info {
+    margin-bottom: 2rem;
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.artist {
+    font-size: 0.95rem;
+    color: var(--secondary-text);
+}
+
+.description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--text-color);
+    margin-top: 1rem;
+}
+
+/* Comments */
+.comments-section {
+    padding: 2rem;
+    border-top: 1px solid #eee;
+}
+
+.comments-section h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.comments-list {
+    margin-bottom: 2rem;
+}
+
+.comment {
+    background-color: #f2f2f2;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.comment-author {
+    font-weight: 500;
+    color: var(--text-color);
+    margin-bottom: 0.5rem;
+}
+
+.comment-text {
+    color: var(--secondary-text);
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+/* Comment Form */
+.comment-form textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    min-height: 100px;
+    font-family: var(--font-family);
+    font-size: 0.95rem;
+    resize: vertical;
+    margin-bottom: 1rem;
+    background-color: #fff;
+    transition: border-color 0.3s;
+}
+
+.comment-form textarea:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+.post-comment-btn {
+    background: var(--primary-color);
+    color: var(--white);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: var(--font-family);
+    transition: opacity 0.3s;
+}
+
+.post-comment-btn:hover {
+    opacity: 0.9;
+}
+
+/* Footer */
+footer {
+    background-color: var(--primary-color);
+    color: #aaa;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+    font-size: 0.85rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hamburger {
+        display: block;
+    }
+
+    .nav-actions {
+        flex-direction: column;
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100%;
+        width: 40%;
+        background-color: var(--primary-color);
+        padding: 2rem 1rem;
+        z-index: 1000;
+        transition: right 0.3s ease-in-out;
+        box-shadow: -2px 0 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .nav-actions a {
+        margin: 1rem 0;
+        text-align: left;
+        font-size: 1.1rem;
+        font-weight: 500;
+        background-color: transparent;
+        color: var(--white); 
+    }
+
+    .nav-actions.show-menu {
+        right: 0;
+    }
+
+    .top-nav {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem;
+    }
+
+    .artwork-detail-container {
+        margin: 1rem;
+        padding: 1rem;
+    }
+
+    .artwork-detail,
+    .comments-section {
+        padding: 1.5rem;
+    }
+}

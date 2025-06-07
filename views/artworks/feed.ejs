@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Art Feed</title>
+  <link rel="stylesheet" href="/css/feed.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header class="top-nav">
+    <div class="nav-header">
+      <h1>Sherubtse Arts Club Portal</h1>
+      <p>Explore and engage with student artwork</p>
+    </div>
+    <div class="nav-actions">
+      <a href="/my-artworks">My Artworks</a>
+      <a href="/logout">Logout</a>
+    </div>
+
+    <!-- Hamburger Icon -->
+    <div class="hamburger" id="hamburger" aria-label="Open navigation menu" role="button" tabindex="0">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </header>
+
+  <!-- Side Menu -->
+  <nav class="side-menu" id="sideMenu" aria-hidden="true">
+    <button class="close-btn" id="closeBtn" aria-label="Close menu" tabindex="0">&times;</button>
+    <a href="/my-artworks">My Artworks</a>
+    <a href="/logout">Logout</a>
+  </nav>
+
+  <!-- Overlay -->
+  <div class="overlay" id="overlay"></div>
+
+  <main class="feed-container">
+    <% if (artworks.length === 0) { %>
+      <p class="no-artworks">No artworks available at the moment.</p>
+    <% } else { %>
+      <% artworks.forEach(art => { %>
+        <article class="artwork-card">
+          <div class="artwork-image">
+            <img src="<%= art.image_url %>" alt="Artwork titled <%= art.title %> by <%= art.artist_name %>" />
+          </div>
+          <div class="artwork-info">
+            <h2><%= art.title %></h2>
+            <p class="artist">by <%= art.artist_name %></p>
+            <p class="description"><%= art.description %></p>
+            <div class="artwork-footer">
+              <form class="like-form" data-art-id="<%= art.id %>">
+                <button
+                  type="submit"
+                  class="like-button <%= art.liked ? 'liked' : '' %>"
+                  aria-pressed="<%= art.liked ? 'true' : 'false' %>"
+                  aria-label="<%= art.liked ? 'Unlike' : 'Like' %> artwork titled <%= art.title %>"
+                >
+                  <span class="heart-icon"><%= art.liked ? '❤️' : '♡' %></span>
+                  <span class="like-count"><%= art.likes %></span>
+                </button>
+              </form>
+              <a href="/artworks/<%= art.id %>" class="view-details">View Details</a>
+            </div>
+          </div>
+        </article>
+      <% }) %>
+    <% } %>
+  </main>
+
+  <footer>
+    &copy; <%= new Date().getFullYear() %> Sherubtse Arts Club
+  </footer>
+
+  <script>
+    document.querySelectorAll('.like-form').forEach(form => {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const artId = form.dataset.artId;
+        const button = form.querySelector('.like-button');
+        const likeCount = form.querySelector('.like-count');
+
+        try {
+          const res = await fetch(`/artworks/${artId}/like`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'X-Requested-With': 'XMLHttpRequest'
+            }
+          });
+
+          const data = await res.json();
+
+          // Your controller responds with { liked, likes }
+          if ('liked' in data && 'likes' in data) {
+            button.classList.toggle('liked', data.liked);
+            button.setAttribute('aria-pressed', data.liked ? 'true' : 'false');
+            button.querySelector('.heart-icon').textContent = data.liked ? '❤️' : '♡';
+            likeCount.textContent = data.likes;
+          } else {
+            alert('Failed to like/unlike the artwork.');
+          }
+        } catch (error) {
+          console.error('Error liking artwork:', error);
+          alert('An error occurred while processing your like.');
+        }
+      });
+    });
+
+    const hamburger = document.getElementById('hamburger');
+    const sideMenu = document.getElementById('sideMenu');
+    const closeBtn = document.getElementById('closeBtn');
+    const overlay = document.getElementById('overlay');
+
+    function openMenu() {
+      sideMenu.classList.add('open');
+      overlay.classList.add('show');
+      sideMenu.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeMenu() {
+      sideMenu.classList.remove('open');
+      overlay.classList.remove('show');
+      sideMenu.setAttribute('aria-hidden', 'true');
+    }
+
+    hamburger.addEventListener('click', openMenu);
+    closeBtn.addEventListener('click', closeMenu);
+    overlay.addEventListener('click', closeMenu);
+
+    hamburger.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        openMenu();
+      }
+    });
+
+    closeBtn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        closeMenu();
+      }
+    });
+  </script>
+</body>
+</html>

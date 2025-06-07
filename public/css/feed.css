@@ -1,0 +1,313 @@
+/* ========================================================================== 
+   BASE STYLES 
+   ========================================================================== */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: #000; /* Black background */
+  display: flex;
+  flex-direction: column;
+}
+
+.page-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Reset margins */
+h1, h2, p {
+  margin: 0;
+}
+
+/* ========================================================================== 
+   NAVIGATION BAR & HEADER 
+   ========================================================================== */
+.top-nav {
+  background-color: #4b00c0;
+  color: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.nav-header h1 {
+  font-size: 1.5rem;
+}
+
+.nav-header p {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.nav-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.nav-actions a {
+  background-color: white;
+  color: #4b00c0;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  margin-left: 0.5rem;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+/* ========================================================================== 
+   HAMBURGER MENU 
+   ========================================================================== */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 25px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.hamburger span {
+  width: 100%;
+  height: 3px;
+  background-color: white;
+  border-radius: 2px;
+  display: block;
+}
+
+/* ========================================================================== 
+   SIDE MENU & OVERLAY 
+   ========================================================================== */
+.side-menu {
+  position: fixed;
+  top: 0;
+  right: 0; /* changed from left: 0 */
+  width: 200px;
+  height: 100%;
+  background-color: #4b00c0;
+  padding: 2rem 1.5rem;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%); /* changed from -100% */
+  transition: transform 0.3s ease-in-out;
+  will-change: transform;
+}
+
+.side-menu.open {
+  transform: translateX(0);
+}
+
+.side-menu a {
+  color: white;
+  text-decoration: none;
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+.side-menu a:hover,
+.side-menu a:focus {
+  color: #ddd;
+  outline: none;
+}
+
+.close-btn {
+  align-self: flex-start;
+  font-size: 2rem;
+  color: white;
+  cursor: pointer;
+  margin-bottom: 2rem;
+  background: none;
+  border: none;
+  padding: 0;
+  line-height: 1;
+}
+
+.close-btn:focus {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 998;
+}
+
+.overlay.show {
+  display: block;
+}
+
+/* ========================================================================== 
+   FEED CONTAINER & ARTWORK CARD 
+   ========================================================================== */
+.feed-container {
+  max-width: 1000px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+}
+
+.artwork-card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.artwork-image img {
+  width: 100%;
+  max-height: 400px;
+  min-height: 250px;
+  object-fit: cover;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.artwork-info {
+  padding: 1rem;
+}
+
+.artwork-info h2 {
+  margin-bottom: 0.5rem;
+}
+
+.artist {
+  color: #555;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.description {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: #333;
+}
+
+.artwork-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.view-details {
+  color: #4b00c0;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.view-details:hover,
+.view-details:focus {
+  color: #330080;
+  outline: none;
+}
+
+/* ========================================================================== 
+   LIKE BUTTON STYLES 
+   ========================================================================== */
+.like-form {
+  display: flex;
+  align-items: center;
+}
+
+/* LIKE BUTTON STYLES */
+.like-button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  font-size: 1.2rem;
+  background: none;
+  border: none;
+  padding: 0;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(0, 0, 0, 0.6); /* Light black stroke */
+  transition: color 0.3s ease, -webkit-text-stroke-color 0.3s ease;
+}
+
+.like-button .heart-icon {
+  font-size: 1.5rem;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(0, 0, 0, 0.6);
+  pointer-events: none;
+}
+
+/* When liked - show solid red */
+.like-button.liked {
+  color: red;
+  -webkit-text-stroke: 0;
+}
+
+.like-button.liked .heart-icon {
+  color: red;
+  -webkit-text-stroke: 0;
+}
+
+.like-count {
+  color: #000000;
+  font-weight: lighter;
+  pointer-events: none;
+}
+
+/* ========================================================================== 
+   FOOTER 
+   ========================================================================== */
+footer {
+  text-align: center;
+  padding: 2rem;
+  background-color: #4b00c0;
+  color: #aaa;
+  font-size: 0.9rem;
+  margin-top: auto;
+}
+
+/* ========================================================================== 
+   RESPONSIVE STYLES 
+   ========================================================================== */
+@media (max-width: 768px) {
+  .nav-actions {
+    display: none;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  .artwork-card {
+    flex-direction: column;
+  }
+
+  .side-menu {
+    width: 30%;
+  }
+}
+
+@media (max-width: 768px) {
+  .artwork-image img {
+    max-height: 300px;
+    min-height: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .artwork-image img {
+    max-height: 250px;
+    min-height: 180px;
+  }
+}

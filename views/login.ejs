@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sign In - Sherubtse Arts Club Portal</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <div class="content-wrapper">
+                <h1>Sherubtse Arts Club Portal</h1>
+                <div class="tagline">
+                    <p>Share your artistic journey and connect with</p>
+                    <p>fellow artists in our creative community. Explore</p>
+                    <p>creativity, showcase your work, and grow</p>
+                    <p>together.</p>
+                </div>
+            </div>
+        </div>
+        <div class="right-panel">
+            <div class="auth-container">
+                <h2>Welcome Back</h2>
+                <form action="/login" method="POST" class="auth-form">
+                    <div class="form-group">
+                        <label>Email Address</label>
+                        <input 
+                            type="email" 
+                            name="email" 
+                            placeholder="Enter your email" 
+                            value="<%= typeof email !== 'undefined' ? email : '' %>" 
+                            required 
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" name="password" placeholder="Enter your password" required />
+                    </div>
+
+                    <% if (message) { %>
+                        <p class="error-message" style="color: red; margin-bottom: 10px;"><%= message %></p>
+                    <% } %>
+
+                    <div class="options-row">
+                        <label class="remember-me">
+                            <input type="checkbox" name="remember" /> Remember me
+                        </label>
+                        <a href="/forgot-password" class="forgot-password">Forgot Password?</a>
+                    </div>
+
+                    <button type="submit" class="btn primary">Sign In</button>
+                </form>
+                <p class="auth-link">
+                    Don't have an account? <a href="/signup">Sign Up</a>
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
