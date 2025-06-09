@@ -1,5 +1,5 @@
 {
-  "name": "arts_portal",
+  "name": "SherubtseArtsportal",
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
@@ -9,15 +9,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Galeymoo/Arts_portal.git"
+    "url": "git+https://github.com/Galeymoo/SherubtseArtsportal.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Galeymoo/Arts_portal/issues"
+    "url": "https://github.com/Galeymoo/SherubtseArtsportal/issues"
   },
-  "homepage": "https://github.com/Galeymoo/Arts_portal#readme",
+  "homepage": "https://github.com/Galeymoo/SherubtseArtsportal#readme",
   "dependencies": {
     "bcrypt": "^6.0.0",
     "cors": "^2.8.5",

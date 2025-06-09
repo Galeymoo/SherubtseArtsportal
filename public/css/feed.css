@@ -61,7 +61,6 @@ h1, h2, p {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-
 /* ========================================================================== 
    HAMBURGER MENU 
    ========================================================================== */
@@ -88,7 +87,7 @@ h1, h2, p {
 .side-menu {
   position: fixed;
   top: 0;
-  right: 0; /* changed from left: 0 */
+  right: 0;
   width: 200px;
   height: 100%;
   background-color: #4b00c0;
@@ -96,7 +95,7 @@ h1, h2, p {
   z-index: 999;
   display: flex;
   flex-direction: column;
-  transform: translateX(100%); /* changed from -100% */
+  transform: translateX(100%);
   transition: transform 0.3s ease-in-out;
   will-change: transform;
 }
@@ -158,13 +157,21 @@ h1, h2, p {
   max-width: 1000px;
   margin: 2rem auto;
   padding: 0 1rem;
+  display: grid;
+  grid-template-columns: 1fr; /* Mobile default */
+  gap: 2rem;
+}
+
+@media (min-width: 768px) {
+  .feed-container {
+    grid-template-columns: 1fr 1fr; /* Two columns on desktop */
+  }
 }
 
 .artwork-card {
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  margin-bottom: 2rem;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -226,7 +233,6 @@ h1, h2, p {
   align-items: center;
 }
 
-/* LIKE BUTTON STYLES */
 .like-button {
   display: flex;
   align-items: center;
@@ -237,7 +243,7 @@ h1, h2, p {
   border: none;
   padding: 0;
   color: transparent;
-  -webkit-text-stroke: 1.5px rgba(0, 0, 0, 0.6); /* Light black stroke */
+  -webkit-text-stroke: 1.5px rgba(0, 0, 0, 0.6);
   transition: color 0.3s ease, -webkit-text-stroke-color 0.3s ease;
 }
 
@@ -248,7 +254,6 @@ h1, h2, p {
   pointer-events: none;
 }
 
-/* When liked - show solid red */
 .like-button.liked {
   color: red;
   -webkit-text-stroke: 0;

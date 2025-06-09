@@ -8,7 +8,7 @@ const User = sequelize.define('User', {
     autoIncrement: true,
     primaryKey: true,
   },
-  name: {
+  full_name: {
     type: DataTypes.STRING(100),
     allowNull: false,
   },
@@ -24,10 +24,6 @@ const User = sequelize.define('User', {
     type: DataTypes.STRING(255),
     allowNull: false,
   },
-  role: {
-    type: DataTypes.STRING(10),
-    defaultValue: 'user',
-  },
   is_verified: {
     type: DataTypes.BOOLEAN,
     defaultValue: false,
@@ -38,10 +34,7 @@ const User = sequelize.define('User', {
   reset_token: {
     type: DataTypes.TEXT,
   },
-  created_at: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW,
-  },
+
 }, {
   tableName: 'users',
   timestamps: false,

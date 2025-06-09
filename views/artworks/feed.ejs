@@ -44,7 +44,7 @@
       <% artworks.forEach(art => { %>
         <article class="artwork-card">
           <div class="artwork-image">
-            <img src="<%= art.image_url %>" alt="Artwork titled <%= art.title %> by <%= art.artist_name %>" />
+            <img src="<%= art.image_url.startsWith('/uploads/') ? art.image_url : '/uploads/' + art.image_url %>" alt="Artwork titled <%= art.title %>" />
           </div>
           <div class="artwork-info">
             <h2><%= art.title %></h2>
@@ -78,9 +78,30 @@
     document.querySelectorAll('.like-form').forEach(form => {
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
+
         const artId = form.dataset.artId;
         const button = form.querySelector('.like-button');
         const likeCount = form.querySelector('.like-count');
+
+        // Disable button to prevent multiple clicks
+        button.disabled = true;
+
+        // Store current state
+        const wasLiked = button.classList.contains('liked');
+        const currentLikes = parseInt(likeCount.textContent, 10);
+
+        // Optimistically update UI
+        if (wasLiked) {
+          button.classList.remove('liked');
+          button.setAttribute('aria-pressed', 'false');
+          button.querySelector('.heart-icon').textContent = '♡';
+          likeCount.textContent = currentLikes - 1;
+        } else {
+          button.classList.add('liked');
+          button.setAttribute('aria-pressed', 'true');
+          button.querySelector('.heart-icon').textContent = '❤️';
+          likeCount.textContent = currentLikes + 1;
+        }
 
         try {
           const res = await fetch(`/artworks/${artId}/like`, {
@@ -93,18 +114,31 @@
 
           const data = await res.json();
 
-          // Your controller responds with { liked, likes }
           if ('liked' in data && 'likes' in data) {
+            // Sync UI with server response (in case of discrepancies)
             button.classList.toggle('liked', data.liked);
             button.setAttribute('aria-pressed', data.liked ? 'true' : 'false');
             button.querySelector('.heart-icon').textContent = data.liked ? '❤️' : '♡';
             likeCount.textContent = data.likes;
           } else {
+            // Revert UI on failure
+            button.classList.toggle('liked', wasLiked);
+            button.setAttribute('aria-pressed', wasLiked ? 'true' : 'false');
+            button.querySelector('.heart-icon').textContent = wasLiked ? '❤️' : '♡';
+            likeCount.textContent = currentLikes;
             alert('Failed to like/unlike the artwork.');
           }
         } catch (error) {
+          // Revert UI on error
+          button.classList.toggle('liked', wasLiked);
+          button.setAttribute('aria-pressed', wasLiked ? 'true' : 'false');
+          button.querySelector('.heart-icon').textContent = wasLiked ? '❤️' : '♡';
+          likeCount.textContent = currentLikes;
           console.error('Error liking artwork:', error);
           alert('An error occurred while processing your like.');
+        } finally {
+          // Re-enable the button
+          button.disabled = false;
         }
       });
     });

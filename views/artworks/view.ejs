@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title><%= artwork.title %> - Sherubtse Arts Club Portal</title>
-    <link rel="stylesheet" href="/css/view.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/view.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
 </head>
 <body>
     <nav class="top-nav">
@@ -28,53 +31,55 @@
         <a href="/feed" class="back-link">← Back to Gallery</a>
         <main class="detail-content">
             <div class="artwork-detail">
-                <img src="<%= artwork.image_url %>" alt="<%= artwork.title %>" class="detail-image">
+                <img
+                    src="<%= artwork.image_url.startsWith('/uploads/') ? artwork.image_url : '/uploads/' + artwork.image_url %>"
+                    alt="Artwork titled <%= artwork.title %>"
+                    class="artwork-image"
+                />
                 <div class="artwork-info">
                     <h2><%= artwork.title %></h2>
-                    <p class="artist">by <%= artwork.artist_name || 'Unknown Artist' %></p>
+                    <p class="artist">by <%= artwork.artist.full_name || 'Unknown Artist' %></p>
                     <% if (artwork.description) { %>
                         <p class="description"><%= artwork.description %></p>
                     <% } %>
                 </div>
             </div>
-            
+
             <div class="comments-section">
                 <h3>Comments</h3>
                 <div class="comments-list">
-                    <% if (artwork.comments && artwork.comments.length > 0) { %>
-                        <% artwork.comments.forEach(comment => { %>
-                            <div class="comment">
-                                <p class="comment-author"><%= comment.commenter_name %></p>
-                                <p class="comment-text"><%= comment.text %></p>
-                            </div>
-                        <% }); %>
+                    <% if (comments && comments.length > 0) { %>
+                    <% comments.forEach(comment => { %>
+                        <div class="comment">
+                        <p class="comment-author"><%= comment.commenter %></p>
+                        <p class="comment-text"><%= comment.text %></p>
+                        </div>
+                    <% }); %>
                     <% } else { %>
-                        <p>No comments yet.</p>
+                    <p>No comments yet.</p>
                     <% } %>
                 </div>
+
                 <form action="/artworks/<%= artwork.id %>/comment" method="POST" class="comment-form">
                     <textarea name="comment" placeholder="Write a comment..." required></textarea>
                     <button type="submit" class="post-comment-btn">Post Comment</button>
                 </form>
-            </div>
-        </main>
-    </div>
+                </div>
+
 
     <footer>
-        <p>&copy; <%= new Date().getFullYear() %> Art Gallery. All rights reserved.</p>
+        <p>&copy; <%= new Date().getFullYear() %> Sherubtse Arts Club. All rights reserved.</p>
     </footer>
 
     <!-- JavaScript for hamburger toggle -->
     <script>
-    const hamburger = document.getElementById('hamburger');
-    const navMenu = document.getElementById('nav-menu');
-    
-    hamburger.addEventListener('click', () => {
-        navMenu.classList.toggle('show-menu');
-        hamburger.innerHTML = navMenu.classList.contains('show-menu') ? '&times;' : '&#9776;';
-    });
-        
-    </script>
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
 
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('show-menu');
+            hamburger.innerHTML = navMenu.classList.contains('show-menu') ? '&times;' : '&#9776;';
+        });
+    </script>
 </body>
 </html>
