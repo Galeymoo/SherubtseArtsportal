@@ -1,7 +1,7 @@
 const sequelize = require('../config/db');
 
 // Import models
-const User = require('./user');
+const User = require('./User'); // not './user'
 const Artwork = require('./artwork');
 const Comment = require('./comment');
 const Like = require('./like');
